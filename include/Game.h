@@ -12,8 +12,9 @@
 
 class Game {
 public:
-	Game(int x, int y, std::string board);
+	Game(unsigned int x, unsigned int y, std::string board);
 	virtual ~Game();
+	int a;
 };
 
 #endif /* GAME_H_ */
