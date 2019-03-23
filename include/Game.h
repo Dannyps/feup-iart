@@ -12,7 +12,7 @@
 
 class Game {
 public:
-	Game::Game(int x, int y, std::string board);
+	Game(int x, int y, std::string board);
 	virtual ~Game();
 };
 
