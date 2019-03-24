@@ -8,13 +8,13 @@
 
 class Game {
 public:
-	Game(unsigned int x, unsigned int y, std::string board, Location initialState, Location target, std::function<double(Location, Location)> heuristic);
+	Game(unsigned int x, unsigned int y, std::string board, Location initialState, Location target, std::function<uint32_t(Location, Location)> heuristic);
 	virtual ~Game();
 	int a;
 private:
 	Location state;
 	Location target;
-	std::function<double(Location, Location)> heuristic;
+	std::function<uint32_t(Location, Location)> heuristic;
 };
 
 #endif /* GAME_H_ */
