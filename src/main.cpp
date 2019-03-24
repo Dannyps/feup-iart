@@ -17,7 +17,7 @@ int main() {
 	std::cout << "This close to the target: " << heuristicDiagonalDistance(state, target) << std::endl;
 
 	try {
-		Game *g = new Game(4,5,"123");
+		Game *g = new Game(4,5,"123", state, target, heuristicDiagonalDistance);
 		g->a++;
 	} catch (std::exception *e) {
 		std::cout << e->what();
