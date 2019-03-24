@@ -3,7 +3,12 @@
 #include "heuristics.h"
 #include "Game.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+	if (argc < 1){
+		std::cout << "Give a map file" << std::endl;
+		return -1;
+	}
+
 	Location initialPosition = {
 			0,	// x
 			0,	// y
@@ -15,8 +20,7 @@ int main() {
 	};
 
 	try {
-		Game *g = new Game(1,3,"123", initialPosition, target, heuristicDiagonalDistance);
-		g->a++;
+		Game game(argv[0], initialPosition, target, heuristicDiagonalDistance);
 	} catch (std::exception *e) {
 		std::cout << e->what();
 	}
