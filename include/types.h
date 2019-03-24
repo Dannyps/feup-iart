@@ -22,7 +22,8 @@ enum class MapItems{
     r4 = 'd',
     r5 = 'e',
     wall = 'x',
-    empty = 'z'
+    empty = 'y',
+    target = 'z'
 };
 
 #endif //LABYRINTHROBOTS_TYPES_H
