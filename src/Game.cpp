@@ -64,3 +64,15 @@ std::vector<Node> Game::getChildren(Node parentNode){
 	}
 	return children;
 }
+
+Location Game::getInitialPosition(){
+	for(uint8_t y = 0; y < map.size(); y++){
+		auto mapLine = map.at(y);
+		for(uint8_t x = 0; x < mapLine.size(); x++){
+			if(mapLine.at(x) == MapItem::r1){
+				return Location(x, y);
+			}
+		}
+	}
+	throw std::runtime_error("Initial Position not found");
+}
