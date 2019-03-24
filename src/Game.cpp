@@ -35,7 +35,7 @@ void Game::readMap(std::string mapBlueprint){
 std::vector<Node> Game::getChildren(Node parentNode){
 	std::vector<Node> children;
 
-	for (int direction = Direction::right; direction < 4 ; direction++){
+	for (int direction = 0; direction < 4 ; direction++){
 		Location mapLocation = parentNode.position;
 		Location lastMapLocation;
 		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty){
