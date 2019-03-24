@@ -84,8 +84,10 @@ void Game::printBoard(){
 		std::vector<MapItem> miv = map[i];
 		for(size_t j = 0; j < miv.size(); j++)
 		{
-			std::cout << miv[j];
+			std::cout << (char) miv[j];
 		}
+
+		std::cout << std::endl;
 		
 	}
 	
