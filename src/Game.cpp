@@ -79,14 +79,12 @@ Location Game::getInitialPosition(){
 
 void Game::printBoard(){
 	std::cout << "Current state: \n";
-	for(uint8_t y = 0; y < map.size(); y++)
+	for(std::vector<MapItem> mapRow : map)
 	{
-		std::vector<MapItem> mapRow = map[y];
-		for(uint8_t x = 0; x < mapRow.size(); x++)
+		for(MapItem item : mapRow)
 		{
-			std::cout << char(mapRow.at(x));
+			std::cout << char(item);
 		}
 		std::cout << std::endl;
 	}
-	
 }
