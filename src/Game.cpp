@@ -29,6 +29,12 @@ void Game::readMap(std::string mapBlueprint){
 	if (map.size()==0){
 		throw std::invalid_argument("The map provided is empty");
 	}
+	Location initialPosition = getInitialPosition();
+	std::vector<Node> childs = getChildren(Node(initialPosition,0));
+	std::cout << "From the initial position (x = " << unsigned(initialPosition.x) << " and y = " << unsigned(initialPosition.y) << ")" << std::endl;
+	std::cout << "Next node left is at: \nx: " << unsigned(childs.at(0).position.x) << "\ny: " << unsigned(childs.at(0).position.y) << "\nheuristic: " << heuristic(childs.at(0).position, Location(12,1)) << std::endl;
+	std::cout << "Next node up is at: \nx: " << unsigned(childs.at(1).position.x) << "\ny: " << unsigned(childs.at(1).position.y) << "\nheuristic: " << heuristic(childs.at(1).position, Location(12,1)) << std::endl;
+	std::cout << "Next node down is at: \nx: " << unsigned(childs.at(2).position.x) << "\ny: " << unsigned(childs.at(2).position.y) << "\nheuristic: " << heuristic(childs.at(2).position, Location(12,1)) << std::endl;
 }
 
 std::vector<Node> Game::getChildren(Node parentNode){
