@@ -4,7 +4,7 @@
 #include "Game.h"
 
 int main() {
-	Location state = {
+	Location initialPosition = {
 			0,	// x
 			0,	// y
 	};
@@ -14,10 +14,8 @@ int main() {
 			6,	// y
 	};
 
-	std::cout << "This close to the target: " << heuristicDiagonalDistance(state, target) << std::endl;
-
 	try {
-		Game *g = new Game(1,3,"123", state, target, heuristicDiagonalDistance);
+		Game *g = new Game(1,3,"123", initialPosition, target, heuristicDiagonalDistance);
 		g->a++;
 	} catch (std::exception *e) {
 		std::cout << e->what();
