@@ -9,12 +9,6 @@ Game::~Game() {
 	// TODO Auto-generated destructor stub
 }
 
-std::vector<Node> Game::getChildren(){
-	std::vector<Node> children;
-
-	return children;
-}
-
 void Game::readMap(std::string mapBlueprint){
 	std::ifstream file(mapBlueprint);
 
@@ -36,4 +30,38 @@ void Game::readMap(std::string mapBlueprint){
 	if (map.size()==0){
 		throw std::invalid_argument("The map provided is empty");
 	}
+}
+
+std::vector<Node> Game::getChildren(Node parentNode){
+	std::vector<Node> children;
+
+	for (int direction = Direction::right; direction < 4 ; direction++){
+		Location mapLocation = parentNode.position;
+		Location lastMapLocation;
+		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty){
+			lastMapLocation = mapLocation;
+			switch (direction)
+			{
+				case Direction::right:
+					mapLocation.x++;
+					break;
+				case Direction::left:
+					mapLocation.x--;
+					break;
+				case Direction::up:
+					mapLocation.y--;
+					break;
+				case Direction::down:
+					mapLocation.y++;
+					break;
+					
+				default:
+					break;
+			}
+		}
+		if(parentNode.position != lastMapLocation){
+			children.push_back(Node(lastMapLocation, parentNode.cost++));
+		}	
+	}
+	return children;
 }

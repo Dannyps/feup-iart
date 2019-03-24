@@ -3,8 +3,7 @@
 
 class Node {
 public:
-    Node(Location pos);
-private:
+    Node(Location pos, uint8_t cost);
     Location position;
     uint8_t cost = 0;
 };

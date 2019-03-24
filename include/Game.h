@@ -17,7 +17,7 @@ private:
 	std::function<uint32_t(Location, Location)> heuristic;
 
 	void readMap(std::string mapBlueprint);
-	std::vector<Node> getChildren();
+	std::vector<Node> getChildren(Node node);
 };
 
 #endif /* GAME_H_ */

@@ -3,19 +3,27 @@
 
 #include <iostream>
 
-typedef struct {
+struct Location {
     uint8_t x = 0;
     uint8_t y = 0;
-} Location;
 
-enum class Direction{
-    right,
-    left,
-    up,
-    down
+    bool operator== (Location rhs){
+        return (this->x == rhs.x) && (this->y == rhs.y);
+    }
+
+    bool operator!= (Location rhs){
+        return !(*this!=rhs);
+    }
 };
 
-enum class MapItem{
+enum Direction{
+    right = 0,
+    left = 1,
+    up = 2,
+    down = 3
+};
+
+enum MapItem{
     r1 = 'a',
     r2 = 'b',
     r3 = 'c',
