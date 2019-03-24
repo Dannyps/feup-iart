@@ -73,7 +73,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 
 Location Game::getInitialPosition(){
 	for(uint8_t y = 0; y < map.size(); y++){
-		auto mapLine = map.at(y);
+		std::vector<MapItem> mapLine = map.at(y);
 		for(uint8_t x = 0; x < mapLine.size(); x++){
 			if(mapLine.at(x) == MapItem::r1){
 				return Location(x, y);
@@ -81,4 +81,16 @@ Location Game::getInitialPosition(){
 		}
 	}
 	throw std::runtime_error("Initial Position not found");
+}
+
+void Game::printBoard(){
+	std::cout << "Current state: \n";
+	for(std::vector<MapItem> mapRow : map)
+	{
+		for(MapItem item : mapRow)
+		{
+			std::cout << char(item);
+		}
+		std::cout << std::endl;
+	}
 }
