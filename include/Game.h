@@ -10,12 +10,10 @@
 
 class Game {
 public:
-	Game(std::string mapBlueprint, Location initialState, Location target, std::function<uint32_t(Location, Location)> heuristic);
+	Game(std::string mapBlueprint, std::function<uint32_t(Location, Location)> heuristic);
 	virtual ~Game();
 private:
 	std::vector<std::vector<MapItem>> map;
-	Location state;
-	Location target;
 	std::function<uint32_t(Location, Location)> heuristic;
 
 	void readMap(std::string mapBlueprint);

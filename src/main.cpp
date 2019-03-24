@@ -9,18 +9,8 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	Location initialPosition = {
-			0,	// x
-			0,	// y
-	};
-
-	Location target = {
-			55,	// x
-			6,	// y
-	};
-
 	try {
-		Game game(argv[1], initialPosition, target, heuristicDiagonalDistance);
+		Game game(argv[1], heuristicDiagonalDistance);
 	} catch (std::exception *e) {
 		std::cout << e->what();
 	}

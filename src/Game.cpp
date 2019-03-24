@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <fstream>
 
-Game::Game(std::string mapBlueprint, Location initialState, Location target, std::function<uint32_t(Location, Location)> heuristic) : state(initialState), target(target), heuristic(heuristic){
+Game::Game(std::string mapBlueprint, std::function<uint32_t(Location, Location)> heuristic) : heuristic(heuristic){
 	readMap(mapBlueprint);
 }
 
