@@ -15,7 +15,7 @@ enum class Direction{
     down
 };
 
-enum class MapItems{
+enum class MapItem{
     r1 = 'a',
     r2 = 'b',
     r3 = 'c',
