@@ -7,12 +7,17 @@ struct Location {
     uint8_t x = 0;
     uint8_t y = 0;
 
+    Location(uint8_t x, uint8_t y){
+        this->x = x;
+        this->y = y;
+    }
+
     bool operator== (Location rhs){
         return (this->x == rhs.x) && (this->y == rhs.y);
     }
 
     bool operator!= (Location rhs){
-        return !(*this!=rhs);
+        return !(*this==rhs);
     }
 };
 

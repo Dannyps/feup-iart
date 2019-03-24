@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <fstream>
 
 Game::Game(std::string mapBlueprint, std::function<uint32_t(Location, Location)> heuristic) : heuristic(heuristic){
 	readMap(mapBlueprint);
@@ -37,8 +36,8 @@ std::vector<Node> Game::getChildren(Node parentNode){
 
 	for (int direction = 0; direction < 4 ; direction++){
 		Location mapLocation = parentNode.position;
-		Location lastMapLocation;
-		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty){
+		Location lastMapLocation= mapLocation;
+		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || mapLocation == lastMapLocation){
 			lastMapLocation = mapLocation;
 			switch (direction)
 			{

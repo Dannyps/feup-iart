@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <fstream>
 #include "types.h"
 #include "Node.h"
 
