@@ -4,7 +4,7 @@
 #include "Game.h"
 
 int main(int argc, char *argv[]) {
-	if (argc < 1){
+	if (argc < 2){
 		std::cout << "Give a map file" << std::endl;
 		return -1;
 	}
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	};
 
 	try {
-		Game game(argv[0], initialPosition, target, heuristicDiagonalDistance);
+		Game game(argv[1], initialPosition, target, heuristicDiagonalDistance);
 	} catch (std::exception *e) {
 		std::cout << e->what();
 	}
