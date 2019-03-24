@@ -13,6 +13,7 @@ class Game {
 public:
 	Game(std::string mapBlueprint, std::function<uint32_t(Location, Location)> heuristic);
 	virtual ~Game();
+	void printBoard();
 private:
 	std::vector<std::vector<MapItem>> map;
 	std::function<uint32_t(Location, Location)> heuristic;

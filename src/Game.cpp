@@ -76,3 +76,17 @@ Location Game::getInitialPosition(){
 	}
 	throw std::runtime_error("Initial Position not found");
 }
+
+void Game::printBoard(){
+	std::cout << "Current state: \n";
+	for(size_t i = 0; i < map.size(); i++)
+	{
+		std::vector<MapItem> miv = map[i];
+		for(size_t j = 0; j < miv.size(); j++)
+		{
+			std::cout << miv[j];
+		}
+		
+	}
+	
+}

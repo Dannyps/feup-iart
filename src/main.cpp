@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
 
 	try {
 		Game game(argv[1], heuristicDiagonalDistance);
+		game.printBoard();
 	} catch (std::exception *e) {
 		std::cout << e->what();
 	}
