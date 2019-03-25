@@ -83,14 +83,47 @@ Location Game::getInitialPosition(){
 	throw std::runtime_error("Initial Position not found");
 }
 
-void Game::printBoard(){
-	std::cout << "Current state: \n";
-	for(std::vector<MapItem> mapRow : map)
-	{
-		for(MapItem item : mapRow)
-		{
-			std::cout << char(item);
-		}
-		std::cout << std::endl;
-	}
+void Game::printBoard() {
+    std::cout << "Current state: \n";
+    size_t line_size = map[0].size();
+
+    std::cout << "╔";  //
+    for (size_t i = 0; i < line_size * 2 - 1; i++) {
+        if (i % 2)
+            std::cout << "╦";
+        else
+            std::cout << "═";
+    }
+    std::cout << "╗" << std::endl;
+
+    for (size_t i = 0; i < map.size(); i++) {
+		std::vector<MapItem> mapRow = map[i];
+        std::cout << "║";
+        for (MapItem item : mapRow) {
+            std::cout << char(item);
+            std::cout << "║";
+        }
+        std::cout << std::endl;
+        if (i != map.size()-1) {
+            for (size_t i = 0; i < line_size * 2 - 1; i++) {
+                if (i == 0) {
+                    std::cout << "╠";
+                }
+                if (i % 2)
+                    std::cout << "╬";
+                else
+                    std::cout << "═";
+            }
+            std::cout << "╣" << std::endl;
+        }
+    }
+
+    std::cout << "╚";  //
+    for (size_t i = 0; i < line_size * 2 - 1; i++) {
+        if (i % 2)
+            std::cout << "╩";
+        else
+            std::cout << "═";
+    }
+    std::cout << "╝" << std::endl;
 }
