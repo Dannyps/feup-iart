@@ -20,7 +20,8 @@ private:
 
 	void readMap(std::string mapBlueprint);
 	std::vector<Node> getChildren(Node node);
-	Location getInitialPosition();
+	Location findMapItem(MapItem mapItem);
+	std::vector<Location> findSolution();
 };
 
 #endif /* GAME_H_ */
