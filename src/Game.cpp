@@ -173,7 +173,12 @@ std::vector<Location> Game::findSolution(){
 				nodeIndex = i;
 			}
 		}
-		std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << std::endl;
+		std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << " -> ";
+		for(Node previousN : nodeToExapandNext.previousNodes){
+			std::cout << previousN.position.toString();
+		}
+		std::cout << std::endl;
+
 		expandedNodes.erase(expandedNodes.begin() + nodeIndex);
 		std::vector<Node> nodesToInsert = getChildren(nodeToExapandNext);
 				
