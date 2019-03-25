@@ -29,14 +29,18 @@ enum Direction{
 };
 
 enum MapItem{
-    r1 = 'a',
-    r2 = 'b',
-    r3 = 'c',
-    r4 = 'd',
-    r5 = 'e',
+    robot1 = 'a',
+    robot2 = 'b',
+    robot3 = 'c',
+    robot4 = 'd',
+    robot5 = 'e',
     wall = 'x',
     empty = 'y',
-    target = 'z'
+    target1 = '1',
+    target2 = '2',
+    target3 = '3',
+    target4 = '4',
+    target5 = '5',
 };
 
 #endif //LABYRINTHROBOTS_TYPES_H
