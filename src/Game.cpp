@@ -37,7 +37,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 	for (int direction = 0; direction < 4 ; direction++){
 		Location mapLocation = parentNode.position;
 		Location lastMapLocation= mapLocation;
-		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || map.at(mapLocation.y).at(mapLocation.x) == MapItem::target1 || mapLocation == lastMapLocation){ // TODO: Find a cleaner way to do this!
+		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || map.at(mapLocation.y).at(mapLocation.x) == MapItem::target1 || map.at(mapLocation.y).at(mapLocation.x) == MapItem::robot1 || mapLocation == lastMapLocation){ // TODO: Find a cleaner way to do this!
 			lastMapLocation = mapLocation;
 			switch (direction)
 			{
@@ -61,7 +61,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
 			previousNodes.insert(previousNodes.end(), parentNode);
-			children.push_back(Node(lastMapLocation, ++parentNode.cost, previousNodes));
+			children.push_back(Node(lastMapLocation, parentNode.cost++, previousNodes));
 		}	
 	}
 	return children;
