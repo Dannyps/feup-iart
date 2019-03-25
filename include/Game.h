@@ -14,6 +14,7 @@ public:
 	Game(std::string mapBlueprint, std::function<uint32_t(Location, Location)> heuristic);
 	virtual ~Game();
 	void printBoard();
+	std::vector<Location> findSolution();
 private:
 	std::vector<std::vector<MapItem>> map;
 	std::function<uint32_t(Location, Location)> heuristic;
@@ -21,7 +22,7 @@ private:
 	void readMap(std::string mapBlueprint);
 	std::vector<Node> getChildren(Node node);
 	Location findMapItem(MapItem mapItem);
-	std::vector<Location> findSolution();
+	void static printItem(MapItem t);
 };
 
 #endif /* GAME_H_ */

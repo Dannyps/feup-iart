@@ -12,6 +12,11 @@ int main(int argc, char *argv[]) {
 	try {
 		Game game(argv[1], heuristicDiagonalDistance);
 		game.printBoard();
+		std::vector<Location> sol = game.findSolution();
+		for(Location p : sol){
+			std::cout << p.toString() << std::endl;
+		}
+
 	} catch (std::exception *e) {
 		std::cout << e->what();
 	}
