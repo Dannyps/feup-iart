@@ -100,7 +100,7 @@ void Game::printBoard() {
 		std::vector<MapItem> mapRow = map[i];
         std::cout << "║";
         for (MapItem item : mapRow) {
-            std::cout << char(item);
+            printItem(item);
             std::cout << "║";
         }
         std::cout << std::endl;
@@ -126,4 +126,24 @@ void Game::printBoard() {
             std::cout << "═";
     }
     std::cout << "╝" << std::endl;
+}
+
+void Game::printItem(MapItem t){
+	switch (t)
+	{
+		case wall:
+			std::cout << "█";
+			break;
+		case empty:
+			std::cout << " ";
+			break;
+		// case r1:
+		// 	std::cout << "🤖";
+		// 	break;
+		// case target:
+		// 	std::cout << "🎯";
+		default:
+			std::cout << (char) t;
+			break;
+	}
 }

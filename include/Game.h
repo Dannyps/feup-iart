@@ -21,6 +21,7 @@ private:
 	void readMap(std::string mapBlueprint);
 	std::vector<Node> getChildren(Node node);
 	Location getInitialPosition();
+	void static printItem(MapItem t);
 };
 
 #endif /* GAME_H_ */
