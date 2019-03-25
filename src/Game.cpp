@@ -163,8 +163,9 @@ std::vector<Location> Game::findSolution(){
 	Node currentNode(findMapItem(MapItem::robot1), 0);
 	std::vector<Node> expandedNodes;
 	
+	bool solutionFound = 0;
 	expandedNodes.push_back(currentNode);
-	while(currentNode.position != target){
+	while(!solutionFound){
 		Node nodeToExapandNext(expandedNodes.at(0));
 		uint32_t tempScore = UINT32_MAX;
 		uint8_t nodeIndex = 0;
@@ -179,6 +180,12 @@ std::vector<Location> Game::findSolution(){
 		expandedNodes.erase(expandedNodes.begin() + nodeIndex);
 		std::vector<Node> nodesToInsert = getChildren(nodeToExapandNext);
 		expandedNodes.insert(expandedNodes.end(), nodesToInsert.begin(), nodesToInsert.end());
+		for(auto n : expandedNodes){
+			if (n.position == target){
+				solutionFound = true;
+				currentNode = n;
+			}
+		}
 	}
 
 	std::vector<Location> path;
