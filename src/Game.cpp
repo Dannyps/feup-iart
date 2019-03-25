@@ -85,63 +85,64 @@ Location Game::getInitialPosition(){
 
 void Game::printBoard() {
     std::cout << "Current state: \n";
-    size_t line_size = map[0].size();
+    //size_t line_size = map[0].size();
 
-    std::cout << "╔";  //
-    for (size_t i = 0; i < line_size * 2 - 1; i++) {
-        if (i % 2)
-            std::cout << "╦";
-        else
-            std::cout << "═";
-    }
-    std::cout << "╗" << std::endl;
+    // std::cout << "╔";  //
+    // for (size_t i = 0; i < line_size * 2 - 1; i++) {
+    //     if (i % 2)
+    //         std::cout << "╦";
+    //     else
+    //         std::cout << "═";
+    // }
+    // std::cout << "╗" << std::endl;
 
     for (size_t i = 0; i < map.size(); i++) {
 		std::vector<MapItem> mapRow = map[i];
-        std::cout << "║";
+        // std::cout << "║";
         for (MapItem item : mapRow) {
             printItem(item);
-            std::cout << "║";
+            // std::cout << "║";
         }
         std::cout << std::endl;
-        if (i != map.size()-1) {
-            for (size_t i = 0; i < line_size * 2 - 1; i++) {
-                if (i == 0) {
-                    std::cout << "╠";
-                }
-                if (i % 2)
-                    std::cout << "╬";
-                else
-                    std::cout << "═";
-            }
-            std::cout << "╣" << std::endl;
-        }
+        // if (i != map.size()-1) {
+        //     for (size_t i = 0; i < line_size * 2 - 1; i++) {
+        //         if (i == 0) {
+        //             std::cout << "╠";
+        //         }
+        //         if (i % 2)
+        //             std::cout << "╬";
+        //         else
+        //             std::cout << "═";
+        //     }
+        //     std::cout << "╣" << std::endl;
+        // }
     }
 
-    std::cout << "╚";  //
-    for (size_t i = 0; i < line_size * 2 - 1; i++) {
-        if (i % 2)
-            std::cout << "╩";
-        else
-            std::cout << "═";
-    }
-    std::cout << "╝" << std::endl;
+    // std::cout << "╚";  //
+    // for (size_t i = 0; i < line_size * 2 - 1; i++) {
+    //     if (i % 2)
+    //         std::cout << "╩";
+    //     else
+    //         std::cout << "═";
+    // }
+    // std::cout << "╝" << std::endl;
 }
 
 void Game::printItem(MapItem t){
 	switch (t)
 	{
 		case wall:
-			std::cout << "█";
+			std::cout << "███";
 			break;
 		case empty:
-			std::cout << " ";
+			std::cout << "▏▔▔";
 			break;
-		// case r1:
-		// 	std::cout << "🤖";
-		// 	break;
-		// case target:
-		// 	std::cout << "🎯";
+		case r1:
+		 	std::cout << "▏r1";
+		 	break;
+		case target:
+		 	std::cout << "▏z ";
+			break;
 		default:
 			std::cout << (char) t;
 			break;
