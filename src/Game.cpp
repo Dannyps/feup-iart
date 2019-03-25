@@ -29,13 +29,6 @@ void Game::readMap(std::string mapBlueprint){
 	if (map.size()==0){
 		throw std::invalid_argument("The map provided is empty");
 	}
-	/*Location initialPosition = initialPosition();
-	std::vector<Node> childs = getChildren(Node(initialPosition,0));
-	std::cout << "From the initial position (x = " << unsigned(initialPosition.x) << " and y = " << unsigned(initialPosition.y) << ")" << std::endl;
-	std::cout << "Next node left is at: \nx: " << unsigned(childs.at(0).position.x) << "\ny: " << unsigned(childs.at(0).position.y) << "\nheuristic: " << heuristic(childs.at(0).position, Location(12,1)) << std::endl;
-	std::cout << "Next node up is at: \nx: " << unsigned(childs.at(1).position.x) << "\ny: " << unsigned(childs.at(1).position.y) << "\nheuristic: " << heuristic(childs.at(1).position, Location(12,1)) << std::endl;
-	std::cout << "Next node down is at: \nx: " << unsigned(childs.at(2).position.x) << "\ny: " << unsigned(childs.at(2).position.y) << "\nheuristic: " << heuristic(childs.at(2).position, Location(12,1)) << std::endl;
-	*/
 }
 
 std::vector<Node> Game::getChildren(Node parentNode){
@@ -44,7 +37,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 	for (int direction = 0; direction < 4 ; direction++){
 		Location mapLocation = parentNode.position;
 		Location lastMapLocation= mapLocation;
-		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || mapLocation == lastMapLocation){
+		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || map.at(mapLocation.y).at(mapLocation.x) == MapItem::target1 || mapLocation == lastMapLocation){ // TODO: Find a cleaner way to do this!
 			lastMapLocation = mapLocation;
 			switch (direction)
 			{
@@ -68,7 +61,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
 			previousNodes.insert(previousNodes.end(), parentNode);
-			children.push_back(Node(lastMapLocation, parentNode.cost++, previousNodes));
+			children.push_back(Node(lastMapLocation, ++parentNode.cost, previousNodes));
 		}	
 	}
 	return children;
@@ -88,57 +81,57 @@ Location Game::findMapItem(MapItem mapItem){
 
 void Game::printBoard() {
     std::cout << "Current state: \n";
-    //size_t line_size = map[0].size();
+    size_t line_size = map[0].size();
 
-    // std::cout << "╔";  //
-    // for (size_t i = 0; i < line_size * 2 - 1; i++) {
-    //     if (i % 2)
-    //         std::cout << "╦";
-    //     else
-    //         std::cout << "═";
-    // }
-    // std::cout << "╗" << std::endl;
+    std::cout << "╔";  //
+    for (size_t i = 0; i < line_size * 2 - 1; i++) {
+        if (i % 2)
+            std::cout << "╦";
+        else
+            std::cout << "═";
+    }
+    std::cout << "╗" << std::endl;
 
     for (size_t i = 0; i < map.size(); i++) {
 		std::vector<MapItem> mapRow = map[i];
-        // std::cout << "║";
+        std::cout << "║";
         for (MapItem item : mapRow) {
             printItem(item);
-            // std::cout << "║";
+            std::cout << "║";
         }
         std::cout << std::endl;
-        // if (i != map.size()-1) {
-        //     for (size_t i = 0; i < line_size * 2 - 1; i++) {
-        //         if (i == 0) {
-        //             std::cout << "╠";
-        //         }
-        //         if (i % 2)
-        //             std::cout << "╬";
-        //         else
-        //             std::cout << "═";
-        //     }
-        //     std::cout << "╣" << std::endl;
-        // }
+        if (i != map.size()-1) {
+            for (size_t i = 0; i < line_size * 2 - 1; i++) {
+                if (i == 0) {
+                    std::cout << "╠";
+                }
+                if (i % 2)
+                    std::cout << "╬";
+                else
+                    std::cout << "═";
+            }
+            std::cout << "╣" << std::endl;
+        }
     }
 
-    // std::cout << "╚";  //
-    // for (size_t i = 0; i < line_size * 2 - 1; i++) {
-    //     if (i % 2)
-    //         std::cout << "╩";
-    //     else
-    //         std::cout << "═";
-    // }
-    // std::cout << "╝" << std::endl;
+    std::cout << "╚";  //
+    for (size_t i = 0; i < line_size * 2 - 1; i++) {
+        if (i % 2)
+            std::cout << "╩";
+        else
+            std::cout << "═";
+    }
+    std::cout << "╝" << std::endl;
 }
 
 void Game::printItem(MapItem t){
 	switch (t)
 	{
 		case wall:
-			std::cout << "███";
+			std::cout << "█";
 			break;
 		case empty:
-			std::cout << "▏▔▔";
+			std::cout << " ";
 			break;
 		case robot1:
 		case robot2:
@@ -150,7 +143,7 @@ void Game::printItem(MapItem t){
 		case target3:
 		case target4:
 		case target5:
-		 	std::cout << "▏" << (char) t;
+		 	std::cout << (char) t;
 			break;
 		default:
 			std::cout << (char) t;
@@ -162,6 +155,9 @@ std::vector<Location> Game::findSolution(){
 	Location target(findMapItem(MapItem::target1));
 	Node currentNode(findMapItem(MapItem::robot1), 0);
 	std::vector<Node> expandedNodes;
+	
+	std::cerr << "Start is: " << currentNode.position.toString() << std::endl;
+	std::cerr << "Goal is: " << target.toString() << std::endl;
 	
 	bool solutionFound = 0;
 	expandedNodes.push_back(currentNode);
@@ -177,15 +173,20 @@ std::vector<Location> Game::findSolution(){
 				nodeIndex = i;
 			}
 		}
+		std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << std::endl;
 		expandedNodes.erase(expandedNodes.begin() + nodeIndex);
 		std::vector<Node> nodesToInsert = getChildren(nodeToExapandNext);
-		expandedNodes.insert(expandedNodes.end(), nodesToInsert.begin(), nodesToInsert.end());
-		for(auto n : expandedNodes){
+				
+		std::cout << "Curent expanded nodes:" << std::endl;
+		for(auto n : nodesToInsert){
 			if (n.position == target){
 				solutionFound = true;
 				currentNode = n;
 			}
+			std::cout << n.position.toString() << " h = " << heuristic(n.position, target) + n.cost << std::endl;
 		}
+
+		expandedNodes.insert(expandedNodes.end(), nodesToInsert.begin(), nodesToInsert.end());
 	}
 
 	std::vector<Location> path;
