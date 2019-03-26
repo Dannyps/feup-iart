@@ -5,7 +5,7 @@ project(LabyrinthRobots)
 set(CMAKE_CXX_STANDARD 14)
 
 #Turn on warnings
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "-g -O3 -Wall -Wextra -Werror")
 
 #Set your directories
 set(INCLUDE_DIR include)

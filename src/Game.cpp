@@ -61,7 +61,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
 			previousNodes.insert(previousNodes.end(), parentNode);
-			children.push_back(Node(lastMapLocation, parentNode.cost++, previousNodes));
+			children.push_back(Node(lastMapLocation, ++parentNode.cost, previousNodes));
 		}	
 	}
 	return children;
@@ -164,8 +164,8 @@ std::vector<Location> Game::findSolution(){
 	while(!solutionFound){
 		Node nodeToExapandNext(expandedNodes.at(0));
 		uint32_t tempScore = UINT32_MAX;
-		uint8_t nodeIndex = 0;
-		for(uint8_t i = 0; i < expandedNodes.size(); i++){
+		uint32_t nodeIndex = 0;
+		for(uint32_t i = 0; i < expandedNodes.size(); i++){
 			uint32_t evaluatedScore = heuristic(expandedNodes.at(i).position, target) + expandedNodes.at(i).cost;
 			if(evaluatedScore < tempScore){
 				tempScore = evaluatedScore;
