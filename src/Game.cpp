@@ -61,7 +61,8 @@ std::vector<Node> Game::getChildren(Node parentNode){
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
 			previousNodes.insert(previousNodes.end(), parentNode);
-			children.push_back(Node(lastMapLocation, ++parentNode.cost, previousNodes));
+			uint16_t cost = parentNode.cost*2;
+			children.push_back(Node(lastMapLocation, cost, previousNodes));
 		}	
 	}
 	return children;
