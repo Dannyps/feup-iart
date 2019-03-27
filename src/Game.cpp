@@ -57,6 +57,9 @@ std::vector<Node> Game::getChildren(Node parentNode){
 				default:
 					break;
 			}
+			if(mapLocation.x==-1 || mapLocation.y==-1 || mapLocation.y >= map.size() || mapLocation.x >= map[0].size()){
+				break;
+			}
 		}
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
