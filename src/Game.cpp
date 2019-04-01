@@ -17,9 +17,11 @@ void Game::readMap(std::string mapBlueprint){
 
 	std::string line;
 	for(uint8_t i = 0; getline(file, line); i++){
-		std::vector<MapItem> mapRow;
-		for(char item : line){
-			mapRow.push_back((MapItem)item);
+		std::vector<Location> mapRow;
+		for(uint8_t j = 0; j< line.length();j++){
+			char c = line[j];
+			Location l(i, j, c);
+			mapRow.push_back(l);
 		}
 		map.push_back(mapRow);
 	}
@@ -29,6 +31,8 @@ void Game::readMap(std::string mapBlueprint){
 	if (map.size()==0){
 		throw std::invalid_argument("The provided map is empty");
 	}
+	
+	// calc nextLocation for each location
 }
 
 std::vector<Node> Game::getChildren(Node parentNode){
@@ -37,7 +41,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 	for (int direction = 0; direction < 4 ; direction++){
 		Location mapLocation = parentNode.position;
 		Location lastMapLocation= mapLocation;
-		while(map.at(mapLocation.y).at(mapLocation.x) == MapItem::empty || map.at(mapLocation.y).at(mapLocation.x) == MapItem::target1 || map.at(mapLocation.y).at(mapLocation.x) == MapItem::robot1 || mapLocation == lastMapLocation){ // TODO: Find a cleaner way to do this!
+		while(map.at(mapLocation.y).at(mapLocation.x).item == MapItem::empty || map.at(mapLocation.y).at(mapLocation.x).item == MapItem::target1 || map.at(mapLocation.y).at(mapLocation.x).item == MapItem::robot1 || mapLocation == lastMapLocation){ // TODO: Find a cleaner way to do this!
 			lastMapLocation = mapLocation;
 			switch (direction)
 			{
@@ -61,6 +65,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 				break;
 			}
 		}
+		//std::cout << "parent: " << parentNode.position.toString() << ", lastMapLocation: " << lastMapLocation.toString() << std::endl;
 		if(parentNode.position != lastMapLocation){
 			std::vector<Node> previousNodes = parentNode.previousNodes;
 			previousNodes.insert(previousNodes.end(), parentNode);
@@ -68,14 +73,15 @@ std::vector<Node> Game::getChildren(Node parentNode){
 			children.push_back(Node(lastMapLocation, cost, previousNodes));
 		}	
 	}
+	//std::cout << "csize: " << children.size() << std::endl;
 	return children;
 }
 
 Location Game::findMapItem(MapItem mapItem){
 	for(uint8_t y = 0; y < map.size(); y++){
-		std::vector<MapItem> mapLine = map.at(y);
+		std::vector<Location> mapLine = map.at(y);
 		for(uint8_t x = 0; x < mapLine.size(); x++){
-			if(mapLine.at(x) == mapItem){
+			if(mapLine.at(x).item == mapItem){
 				return Location(x, y);
 			}
 		}
@@ -97,10 +103,10 @@ void Game::printBoard() {
     std::cout << "╗" << std::endl;
 
     for (size_t i = 0; i < map.size(); i++) {
-		std::vector<MapItem> mapRow = map[i];
+		std::vector<Location> mapRow = map[i];
         std::cout << "║";
-        for (MapItem item : mapRow) {
-            printItem(item);
+        for (Location item : mapRow) {
+            printItem(item.item);
             std::cout << "║";
         }
         std::cout << std::endl;
@@ -156,7 +162,7 @@ void Game::printItem(MapItem t){
 }
 
 std::vector<Location> Game::findSolution(){
-	Location target(findMapItem(MapItem::target1));
+	Location target = findMapItem(MapItem::target1);
 	Node currentNode(findMapItem(MapItem::robot1), 0);
 	std::vector<Node> expandedNodes;
 	
@@ -178,9 +184,9 @@ std::vector<Location> Game::findSolution(){
 			}
 		}
 		// std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << " -> ";
-		for(Node previousN : nodeToExapandNext.previousNodes){
-			//std::cout << previousN.position.toString();
-		}
+		// for(Node previousN : nodeToExapandNext.previousNodes){
+		// 	std::cout << previousN.position.toString();
+		// }
 		//std::cout << std::endl;
 
 		expandedNodes.erase(expandedNodes.begin() + nodeIndex);

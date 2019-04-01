@@ -4,6 +4,23 @@
 #include <iostream>
 #include <string>
 
+
+enum MapItem {
+    robot1 = 'a',
+    robot2 = 'b',
+    robot3 = 'c',
+    robot4 = 'd',
+    robot5 = 'e',
+    wall = 'x',
+    empty = 'y',
+    target1 = '1',
+    target2 = '2',
+    target3 = '3',
+    target4 = '4',
+    target5 = '5',
+};
+
+
 struct Location {
     uint8_t x = 0;
     uint8_t y = 0;
@@ -12,6 +29,11 @@ struct Location {
     Location(uint8_t x, uint8_t y) {
         this->x = x;
         this->y = y;
+    }
+
+    Location(uint8_t x, uint8_t y, char i) {
+        Location(x, y);
+        this->item = (MapItem) i;
     }
 
     bool operator==(Location rhs) {
@@ -31,6 +53,7 @@ struct Location {
         Location right();
         Location up();
         Location down();
+        MapItem item;
 };
 
 enum Direction {
@@ -38,21 +61,6 @@ enum Direction {
     left = 1,
     up = 2,
     down = 3
-};
-
-enum MapItem {
-    robot1 = 'a',
-    robot2 = 'b',
-    robot3 = 'c',
-    robot4 = 'd',
-    robot5 = 'e',
-    wall = 'x',
-    empty = 'y',
-    target1 = '1',
-    target2 = '2',
-    target3 = '3',
-    target4 = '4',
-    target5 = '5',
 };
 
 #endif  //LABYRINTHROBOTS_TYPES_H

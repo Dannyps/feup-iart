@@ -16,7 +16,7 @@ public:
 	void printBoard();
 	std::vector<Location> findSolution();
 private:
-	std::vector<std::vector<MapItem>> map;
+	std::vector<std::vector<Location>> map;
 	std::function<uint32_t(Location, Location)> heuristic;
 
 	void readMap(std::string mapBlueprint);
