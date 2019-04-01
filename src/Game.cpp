@@ -33,7 +33,7 @@ void Game::readMap(std::string mapBlueprint){
 	}
 	
 	// calc nextLocation for each location
-	for(uint8_t i = 0; this->map.size(); i++){
+	for(uint8_t i = 0; i < this->map.size(); i++){
 		std::vector<Location> mapRow = this->map.at(i);
 		for(uint8_t j = 0; j< mapRow.size();j++){
 			// ignore walls
