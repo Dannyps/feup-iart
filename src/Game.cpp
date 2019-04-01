@@ -120,6 +120,15 @@ void Game::readMap(std::string mapBlueprint) {
     }
 }
 
+unsigned int locationPresentInPreviousNodes(Location l, std::vector<Node> nodes){
+	for(size_t i = 0; i< nodes.size(); i++){
+		Node n = nodes[i];
+		if(n.position==l)
+		return nodes.size() - i;
+	}
+	return 0;
+}
+
 std::vector<Node> Game::getChildren(Node parentNode) {
     std::vector<Node> children;
 
@@ -155,7 +164,7 @@ std::vector<Node> Game::getChildren(Node parentNode) {
             default:
                 break;
         }
-        if (parentNode.position != mapLocation) {
+        if (parentNode.position != mapLocation && !locationPresentInPreviousNodes(mapLocation, parentNode.previousNodes)) {
             std::vector<Node> previousNodes = parentNode.previousNodes;
             previousNodes.insert(previousNodes.end(), parentNode);
             uint16_t cost = parentNode.cost * 2;
