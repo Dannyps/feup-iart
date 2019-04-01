@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-
 enum MapItem {
     robot1 = 'a',
     robot2 = 'b',
@@ -22,19 +21,12 @@ enum MapItem {
 
 struct Location;
 struct Location {
-    uint8_t x = 0;
-    uint8_t y = 0;
+    int x = 0;
+    int y = 0;
 
-    Location();
-    Location(uint8_t x, uint8_t y) {
-        this->x = x;
-        this->y = y;
-    }
+    Location(int x, int y) : x(x), y(y) {}
 
-    Location(uint8_t x, uint8_t y, char i) {
-        Location(x, y);
-        this->item = (MapItem) i;
-    }
+    Location(int x, int y, char i) : x(x), y(y), item((MapItem)i) {}
 
     bool operator==(Location rhs) {
         return (this->x == rhs.x) && (this->y == rhs.y);
@@ -45,15 +37,14 @@ struct Location {
     }
 
     std::string toString() {
-        return std::string("(" + std::to_string(x) + "," + std::to_string(y) + ")");
+        return std::string("(" + std::to_string(+x) + "," + std::to_string(+y) + ") -> " + (char)item);
     }
 
-    public:
-        Location *left;
-        Location *right;
-        Location *up;
-        Location *down;
-        MapItem item;
+    Location *left;
+    Location *right;
+    Location *up;
+    Location *down;
+    MapItem item;
 };
 
 enum Direction {
