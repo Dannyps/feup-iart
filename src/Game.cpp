@@ -36,6 +36,9 @@ void Game::readMap(std::string mapBlueprint){
 	for(uint8_t i = 0; this->map.size(); i++){
 		std::vector<Location> mapRow = this->map.at(i);
 		for(uint8_t j = 0; j< mapRow.size();j++){
+			// ignore walls
+			if(this->map.at(i).at(j).item == MapItem::wall) continue;
+
 			for (int direction = 0; direction < 4 ; direction++){
 				uint8_t y=i, x=j;
 				while(map.at(y).at(x).item != MapItem::wall){

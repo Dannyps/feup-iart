@@ -40,10 +40,10 @@ struct Location {
         return std::string("(" + std::to_string(+x) + "," + std::to_string(+y) + ") -> " + (char)item);
     }
 
-    Location *left;
-    Location *right;
-    Location *up;
-    Location *down;
+    Location *left = NULL;
+    Location *right = NULL;
+    Location *up = NULL;
+    Location *down = NULL;
     MapItem item;
 };
 
