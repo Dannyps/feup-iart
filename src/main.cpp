@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
                     d = "left";
             }
 
-            std::cout << p1.toString() << p2.toString() << " " << d << std::endl;
+            std::cout << p1.toString() <<"\t"<< p2.toString() << "\t" << d << std::endl;
         }
 
     } catch (std::exception *e) {
