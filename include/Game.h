@@ -21,7 +21,7 @@ private:
 
 	void readMap(std::string mapBlueprint);
 	std::vector<Node> getChildren(Node node);
-	Location findMapItem(MapItem mapItem);
+	Location& findMapItem(MapItem mapItem);
 	void static printItem(MapItem t);
 };
 
