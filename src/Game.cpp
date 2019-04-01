@@ -27,7 +27,7 @@ void Game::readMap(std::string mapBlueprint){
 	file.close();
 
 	if (map.size()==0){
-		throw std::invalid_argument("The map provided is empty");
+		throw std::invalid_argument("The provided map is empty");
 	}
 }
 
@@ -57,7 +57,7 @@ std::vector<Node> Game::getChildren(Node parentNode){
 				default:
 					break;
 			}
-			if(mapLocation.x==-1 || mapLocation.y==-1 || mapLocation.y >= map.size() || mapLocation.x >= map[0].size()){
+			if(mapLocation.y >= map.size() || mapLocation.x >= map[0].size()){
 				break;
 			}
 		}
@@ -160,8 +160,8 @@ std::vector<Location> Game::findSolution(){
 	Node currentNode(findMapItem(MapItem::robot1), 0);
 	std::vector<Node> expandedNodes;
 	
-	std::cerr << "Start is: " << currentNode.position.toString() << std::endl;
-	std::cerr << "Goal is: " << target.toString() << std::endl;
+	// std::cerr << "Start is: " << currentNode.position.toString() << std::endl;
+	// std::cerr << "Goal is: " << target.toString() << std::endl;
 	
 	bool solutionFound = 0;
 	expandedNodes.push_back(currentNode);
@@ -177,22 +177,22 @@ std::vector<Location> Game::findSolution(){
 				nodeIndex = i;
 			}
 		}
-		std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << " -> ";
+		// std::cout << "Let's find something better than: " << nodeToExapandNext.position.toString() << " -> ";
 		for(Node previousN : nodeToExapandNext.previousNodes){
-			std::cout << previousN.position.toString();
+			//std::cout << previousN.position.toString();
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 
 		expandedNodes.erase(expandedNodes.begin() + nodeIndex);
 		std::vector<Node> nodesToInsert = getChildren(nodeToExapandNext);
 				
-		std::cout << "Curent expanded nodes:" << std::endl;
+		// std::cout << "Curent expanded nodes:" << std::endl;
 		for(auto n : nodesToInsert){
 			if (n.position == target){
 				solutionFound = true;
 				currentNode = n;
 			}
-			std::cout << n.position.toString() << " h = " << heuristic(n.position, target) + n.cost << std::endl;
+			// std::cout << n.position.toString() << " h = " << heuristic(n.position, target) + n.cost << std::endl;
 		}
 
 		expandedNodes.insert(expandedNodes.end(), nodesToInsert.begin(), nodesToInsert.end());
