@@ -64,16 +64,16 @@ void Game::readMap(std::string mapBlueprint){
 				}
 				switch (direction) {
 					case Direction::right:
-						this->map.at(i).at(j).right = &this->map.at(y).at(x);
+						this->map.at(i).at(j).right = &this->map.at(y).at(--x);
 						break;
 					case Direction::left:
-						this->map.at(i).at(j).left = &this->map.at(y).at(x);
+						this->map.at(i).at(j).left = &this->map.at(y).at(++x);
 						break;
 					case Direction::up:
-						this->map.at(i).at(j).up = &this->map.at(y).at(x);
+						this->map.at(i).at(j).up = &this->map.at(++y).at(x);
 						break;
 					case Direction::down:
-						this->map.at(i).at(j).down = &this->map.at(y).at(x);
+						this->map.at(i).at(j).down = &this->map.at(--y).at(x);
 						break;
 					default:
 						break;
