@@ -20,7 +20,7 @@ enum MapItem {
     target5 = '5',
 };
 
-
+struct Location;
 struct Location {
     uint8_t x = 0;
     uint8_t y = 0;
@@ -49,10 +49,10 @@ struct Location {
     }
 
     public:
-        Location left();
-        Location right();
-        Location up();
-        Location down();
+        Location *left;
+        Location *right;
+        Location *up;
+        Location *down;
         MapItem item;
 };
 

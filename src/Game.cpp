@@ -33,6 +33,55 @@ void Game::readMap(std::string mapBlueprint){
 	}
 	
 	// calc nextLocation for each location
+	for(uint8_t i = 0; this->map.size(); i++){
+		std::vector<Location> mapRow = this->map.at(i);
+		for(uint8_t j = 0; j< mapRow.size();j++){
+			for (int direction = 0; direction < 4 ; direction++){
+				uint8_t y=i, x=j;
+				while(map.at(y).at(x).item != MapItem::wall){
+					switch (direction) {
+						case Direction::right:
+							x++;
+							break;
+						case Direction::left:
+							x--;
+							break;
+						case Direction::up:
+							y--;
+							break;
+						case Direction::down:
+							y++;
+							break;
+						default:
+							break;
+					}
+					if(y >= map.size() || x >= map[0].size()){
+						break;
+					}
+				}
+				switch (direction) {
+					case Direction::right:
+						this->map.at(i).at(j).right = &this->map.at(y).at(x);
+						break;
+					case Direction::left:
+						this->map.at(i).at(j).left = &this->map.at(y).at(x);
+						break;
+					case Direction::up:
+						this->map.at(i).at(j).up = &this->map.at(y).at(x);
+						break;
+					case Direction::down:
+						this->map.at(i).at(j).down = &this->map.at(y).at(x);
+						break;
+					default:
+						break;
+				}
+
+				std::cout << "direction: " << direction << "\t Original node: " << this->map.at(i).at(j).toString() << "\t Wall: " << this->map.at(y).at(x).toString() << std::endl;
+			}
+
+		}
+	}
+
 }
 
 std::vector<Node> Game::getChildren(Node parentNode){
