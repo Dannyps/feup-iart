@@ -8,6 +8,7 @@ struct Location {
     uint8_t x = 0;
     uint8_t y = 0;
 
+    Location();
     Location(uint8_t x, uint8_t y) {
         this->x = x;
         this->y = y;
@@ -24,6 +25,12 @@ struct Location {
     std::string toString() {
         return std::string("(" + std::to_string(x) + "," + std::to_string(y) + ")");
     }
+
+    public:
+        Location left();
+        Location right();
+        Location up();
+        Location down();
 };
 
 enum Direction {
