@@ -19,6 +19,9 @@ enum MapItem {
     target5 = '5',
 };
 
+/**
+ * Location holds all information pertaining to a positiion in tha map
+ */ 
 struct Location {
     int x = 0;
     int y = 0;
@@ -39,10 +42,13 @@ struct Location {
         return std::string("(" + std::to_string(+x) + "," + std::to_string(+y) + ") -> " + (char)item);
     }
 
+    // The four Location* bellow indicate the destination location when the robot moves from this location in any of the four directions available.
     Location *left = NULL;
     Location *right = NULL;
     Location *up = NULL;
     Location *down = NULL;
+
+    // The kind of mapItem held in this position
     MapItem item;
 };
 
