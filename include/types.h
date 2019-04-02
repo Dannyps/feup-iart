@@ -19,7 +19,6 @@ enum MapItem {
     target5 = '5',
 };
 
-struct Location;
 struct Location {
     int x = 0;
     int y = 0;
