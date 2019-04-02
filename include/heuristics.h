@@ -6,5 +6,5 @@
 
 uint32_t heuristicDiagonalDistance(Location state, Location target);
 uint32_t heuristicZero(Location state, Location target);
-
-#endif //LABYRINTHROBOTS_HEURISTICS_H
+uint32_t heuristicManhattanDistance(Location state, Location target);
+#endif

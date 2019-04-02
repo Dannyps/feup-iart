@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     }
 
     try {
-        Game game(argv[1], heuristicZero);
+        Game game(argv[1], heuristicManhattanDistance);
         game.printBoard();
         std::vector<Location> sol = game.findSolution();
         for (size_t i = 1; i < sol.size(); i++) {

@@ -167,7 +167,7 @@ std::vector<Node> Game::getChildren(Node parentNode) {
         if (parentNode.position != mapLocation && !locationPresentInPreviousNodes(mapLocation, parentNode.previousNodes)) {
             std::vector<Node> previousNodes = parentNode.previousNodes;
             previousNodes.insert(previousNodes.end(), parentNode);
-            uint16_t cost = parentNode.cost * 2;
+            uint16_t cost = parentNode.cost;
             children.push_back(Node(mapLocation, cost, previousNodes));
         }
     }
@@ -262,7 +262,7 @@ std::vector<Location> Game::findSolution() {
     Location target = findMapItem(MapItem::target1);
     //std::cout << target.toString() << "\n";
     Location l = findMapItem(MapItem::robot1);
-    Node currentNode(l, 0);
+    Node currentNode(l, 1);
     //	std::cout << l.toString() << "\n";
 
     std::vector<Node> expandedNodes;  // nodes to be expanded
@@ -277,7 +277,9 @@ std::vector<Location> Game::findSolution() {
         uint32_t tempScore = UINT32_MAX;
         uint32_t nodeIndex = 0;
         for (uint32_t i = 0; i < expandedNodes.size(); i++) {
-            uint32_t evaluatedScore = heuristic(expandedNodes.at(i).position, target) + expandedNodes.at(i).cost;
+            uint32_t h = heuristic(expandedNodes.at(i).position, target);
+            uint32_t g = expandedNodes.at(i).cost;
+            uint32_t evaluatedScore = h+g*5;
             if (evaluatedScore < tempScore) {
                 tempScore = evaluatedScore;
                 nodeToExapandNext = expandedNodes.at(i);
