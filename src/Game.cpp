@@ -8,6 +8,10 @@ Game::~Game() {
     // TODO Auto-generated destructor stub
 }
 
+/**
+ * Load the map from the mapBlueprint string.
+ * Also populates the Location.(up|down|left|right) for each Location
+ */
 void Game::readMap(std::string mapBlueprint) {
     std::ifstream file(mapBlueprint);
 
@@ -120,6 +124,14 @@ void Game::readMap(std::string mapBlueprint) {
     }
 }
 
+/**
+ * Determines if the Location l is present in the nodes vector.
+ * 
+ * @param l Location to search in nodes
+ * @param nodes the vetor in which to search
+ * 
+ * @return the occurrence of l in nodes, 0 if it isn't found 
+ */
 unsigned int locationPresentInPreviousNodes(Location l, std::vector<Node> nodes){
 	for(size_t i = 0; i< nodes.size(); i++){
 		Node n = nodes[i];
@@ -129,6 +141,9 @@ unsigned int locationPresentInPreviousNodes(Location l, std::vector<Node> nodes)
 	return 0;
 }
 
+/**
+ * get nodes accessible through the parentNode
+ */
 std::vector<Node> Game::getChildren(Node parentNode) {
     std::vector<Node> children;
 
@@ -176,6 +191,11 @@ std::vector<Node> Game::getChildren(Node parentNode) {
     return children;
 }
 
+/**
+ * Given a mapItem, return the first occurence of it in the map
+ * 
+ * @return the Location of the mapItem found. 
+ */
 Location& Game::findMapItem(MapItem mapItem) {
     for (uint8_t y = 0; y < map.size(); y++) {
         std::vector<Location> mapLine = map.at(y);
@@ -185,8 +205,12 @@ Location& Game::findMapItem(MapItem mapItem) {
             }
         }
     }
+    return this->map.at(0).at(0);
 }
 
+/**
+ * Prints the map to the console. 
+ */
 void Game::printBoard() {
     std::cout << "Current state: \n";
     size_t line_size = map[0].size();
@@ -232,6 +256,9 @@ void Game::printBoard() {
     std::cout << "╝" << std::endl;
 }
 
+/*
+ * prints a character representing the passed mapItem
+ */
 void Game::printItem(MapItem t) {
     switch (t) {
         case wall:
@@ -258,6 +285,9 @@ void Game::printItem(MapItem t) {
     }
 }
 
+/**
+ * find a solution to the currently loaded map 
+ */
 std::vector<Location> Game::findSolution() {
     Location target = findMapItem(MapItem::target1);
     //std::cout << target.toString() << "\n";
