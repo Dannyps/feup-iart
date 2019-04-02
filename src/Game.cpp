@@ -59,13 +59,13 @@ void Game::readMap(std::string mapBlueprint) {
                         default:
                             break;
                     }
-                    if (y >= map.size() || x >= map[0].size() || x < 0 || y < 0) {
+                    if (y >= (int32_t)map.size() || x >= (int32_t)map[0].size() || x < 0 || y < 0) {
                         break;
                     }
                 }
                 switch (direction) {
                     case Direction::right:
-                        if (!(x - 1 == j || x > map.at(0).size()))
+                        if (!(x - 1 == j || x > (int32_t)map.at(0).size()))
                             this->map.at(i).at(j).right = &this->map.at(y).at(--x);
                         // if (this->map.at(i).at(j).right == NULL)
                         //     std::cout << "direction: " << direction << "\t Original node: " << this->map.at(i).at(j).toString() << "\t Wall: null" << std::endl;
@@ -92,7 +92,7 @@ void Game::readMap(std::string mapBlueprint) {
                         break;
 
                     case Direction::down:
-                        if (!(y - 1 == i || y > map.size()))
+                        if (!(y - 1 == i || y > (int32_t)map.size()))
                             this->map.at(i).at(j).down = &this->map.at(--y).at(x);
                         // if (this->map.at(i).at(j).down == NULL)
                         //     std::cout << "direction: " << direction << "\t Original node: " << this->map.at(i).at(j).toString() << "\t Wall: null" << std::endl;

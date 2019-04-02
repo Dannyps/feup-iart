@@ -8,6 +8,6 @@ uint32_t heuristicManhattanDistance(Location state, Location target) {
     return pow(state.x-target.x,2)+pow(state.y-target.y,2);
 }
 
-uint32_t heuristicZero(Location state, Location target) {
+uint32_t heuristicZero(__attribute__ ((unused)) Location state, __attribute__ ((unused)) Location target) {
     return 0;
 }
